@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Hotel Paraíso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Hotel Paraíso - Panel de Administración</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Volver a la página principal</a>
+            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Habitaciones</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Tipo</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                    <tr>
+                        <td>{{ room['number'] }}</td>
+                        <td>{{ room['type'] }}</td>
+                        <td>${{ room['price'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Reservaciones</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Habitación</th>
+                        <th>Fecha de entrada</th>
+                        <th>Fecha de salida</th>
+                        <th>Costo total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation['username'] }}</td>
+                        <td>{{ reservation['room_id'] }}</td>
+                        <td>{{ reservation['check_in'] }}</td>
+                        <td>{{ reservation['check_out'] }}</td>
+                        <td>${{ reservation['total_cost'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

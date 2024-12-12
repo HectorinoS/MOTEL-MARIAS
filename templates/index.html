@@ -1,0 +1,54 @@
+<<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reserva de Habitaciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Hotel Paraíso</h1>
+        <nav>
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Iniciar sesión</a>
+                <a href="{{ url_for('register') }}">Registrarse</a>
+            {% endif %}
+            {% if session.get('is_admin') %}
+                <a href="{{ url_for('admin') }}">Panel de administración</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        <section id="room-search">
+            <h2>Buscar Habitaciones</h2>
+            <form id="search-form">
+                <select id="room-type" name="room_type" required>
+                    <option value="">Seleccione tipo de habitación</option>
+                    <option value="individual">Individual</option>
+                    <option value="doble">Doble</option>
+                    <option value="suite">Suite</option>
+                </select>
+                <input type="date" id="check-in" name="check_in" required>
+                <input type="date" id="check-out" name="check_out" required>
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+        <section id="room-list">
+            <!-- Las habitaciones se mostrarán aquí -->
+        </section>
+        <section id="reservation-form" style="display: none;">
+            <h2>Hacer Reserva</h2>
+            <form id="reservation">
+                <input type="hidden" id="room-id" name="room_id">
+                <p id="room-details"></p>
+                <p id="total-cost"></p>
+                <button type="submit">Confirmar Reserva</button>
+            </form>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
